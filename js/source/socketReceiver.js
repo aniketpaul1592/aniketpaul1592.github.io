@@ -1,5 +1,5 @@
 // This JS file receives the data from socket channel and Updates the Stock table.
-
+// Add try catch block
 // SocketReciever
 var ws = new WebSocket("ws://stocks.mnet.website");
 ws.addEventListener('message', function({data}) {
@@ -24,20 +24,45 @@ function createTableEntry(companyCode, price, msgTime){
 	console.log("Company Code"+companyCode);
 	console.log("Company Price"+price);
 	console.log("CurrTime"+msgTime);
-	var strHTML = 	"<tr id='"+companyCode+"'>\
-                        <td id='"+companyCode+"c'>"+companyCode+"</td>\
-                        <td id='"+companyCode+"p'>"+price+"</td>\
-                        <td id='"+companyCode+"t'>"+msgTime+"</td>\
-                    </tr>";
-	
 
+	// This condition checks if the data from socket channel is a new entry or not
+	
 	if(document.getElementById(companyCode)){
 		console.log("Yes");
 		var strHTML2 = "<td id='"+companyCode+"c'>"+companyCode+"</td>\
                         <td id='"+companyCode+"p'>"+price+"</td>\
                         <td id='"+companyCode+"t'>"+msgTime+"</td>";
-		$('#'+companyCode).html(strHTML2);
+        //Price Change finder
+        	var iniPrice = $('#'+companyCode+'p').html();
+        	$('#'+companyCode).html(strHTML2);
+        	iniPrice = parseFloat(iniPrice);
+        	var newPrice = parseFloat(price);
+        	var diffPrice = iniPrice - newPrice;
+        	console.log(iniPrice+"abcd"+newPrice+"abcd"+diffPrice);
+        	if(diffPrice<0){
+        		if($('#'+companyCode+'p').hasClass("bg-success")){
+        			$('#'+companyCode+'p').removeClass("bg-success");
+        			$('#'+companyCode+'p').addClass("bg-danger");
+        		}else if(!($('#'+companyCode+'p').hasClass("bg-danger"))){
+        			$('#'+companyCode+'p').addClass("bg-danger");
+        		}		
+        	}else{
+        		if($('#'+companyCode+'p').hasClass("bg-danger")){
+        			$('#'+companyCode+'p').removeClass("bg-danger");
+        			$('#'+companyCode+'p').addClass("bg-success");
+        		}else if(!($('#'+companyCode+'p').hasClass("bg-success"))){
+        			$('#'+companyCode+'p').addClass("bg-success");
+        		}
+        	}
+        //
+
 	}else{
+		var strHTML = 	"<tr id='"+companyCode+"'>\
+                        	<td id='"+companyCode+"c'>"+companyCode+"</td>\
+                        	<td id='"+companyCode+"p'>"+price+"</td>\
+                        	<td id='"+companyCode+"t'>"+msgTime+"</td>\
+                    	</tr>";
+
 		var iniData	= $('#stocksAppTable').html();
     	$('#stocksAppTable').html(iniData+strHTML);
 	}
@@ -49,4 +74,8 @@ function maintainRealTime(msgTime){
 	setInterval(function(){
 		// Need to write the code and alternative
 	}, 60000);
-} 
+}
+
+function maintainColorCode(price) {
+
+}
