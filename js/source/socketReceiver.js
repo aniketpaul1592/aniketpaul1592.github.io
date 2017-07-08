@@ -24,14 +24,24 @@ function createTableEntry(companyCode, price, msgTime){
 	console.log("Company Code"+companyCode);
 	console.log("Company Price"+price);
 	console.log("CurrTime"+msgTime);
-	var strHTML = 	'<tr id="'+companyCode+'">\
-                    	<th scope="row">1</th>\
-                            <td>'+companyCode+'</td>\
-                            <td>'+price+'</td>\
-                            <td>'+msgTime+'</td>\
-                    </tr>';
-	var iniData	= $('#stocksAppTable').html();
-    $('#stocksAppTable').html(iniData+strHTML);
+	var strHTML = 	"<tr id='"+companyCode+"'>\
+                        <td id='"+companyCode+"c'>"+companyCode+"</td>\
+                        <td id='"+companyCode+"p'>"+price+"</td>\
+                        <td id='"+companyCode+"t'>"+msgTime+"</td>\
+                    </tr>";
+	
+
+	if(document.getElementById(companyCode)){
+		console.log("Yes");
+		var strHTML2 = "<td id='"+companyCode+"c'>"+companyCode+"</td>\
+                        <td id='"+companyCode+"p'>"+price+"</td>\
+                        <td id='"+companyCode+"t'>"+msgTime+"</td>";
+		$('#'+companyCode).html(strHTML2);
+	}else{
+		var iniData	= $('#stocksAppTable').html();
+    	$('#stocksAppTable').html(iniData+strHTML);
+	}
+
 }
 
 //function to maintain RealTime Time cal
