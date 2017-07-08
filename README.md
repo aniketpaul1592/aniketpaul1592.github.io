@@ -15,8 +15,7 @@ To begin using this SPA, choose one of the following options to get started:
 
 ## Creator
 
-Stocks App is created by and maintained by **Aniket Paul
+Stocks App is created by and maintained by **[Aniket Paul](https://linkedin.com/in/aniket-paul-0400279a)
 
-* https://linkedin.com/in/aniket-paul-0400279a
 * https://github.com/aniketpaul1592
 

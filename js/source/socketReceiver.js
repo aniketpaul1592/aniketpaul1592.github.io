@@ -29,40 +29,22 @@ function createTableEntry(companyCode, price, msgTime){
 	
 	if(document.getElementById(companyCode)){
 		console.log("Yes");
-		var strHTML2 = "<td id='"+companyCode+"c'>"+companyCode+"</td>\
+		var strHTML2 = "<td id='"+companyCode+"c'>"+companyCode.toUpperCase()+"</td>\
                         <td id='"+companyCode+"p'>"+price+"</td>\
                         <td id='"+companyCode+"t'>"+msgTime+"</td>";
         //Price Change finder
         	var iniPrice = $('#'+companyCode+'p').html();
-        	$('#'+companyCode).html(strHTML2);
         	iniPrice = parseFloat(iniPrice);
         	var newPrice = parseFloat(price);
-        	var diffPrice = iniPrice - newPrice;
-        	console.log(iniPrice+"abcd"+newPrice+"abcd"+diffPrice);
-        	if(diffPrice<0){
-        		if($('#'+companyCode+'p').hasClass("bg-success")){
-        			$('#'+companyCode+'p').removeClass("bg-success");
-        			$('#'+companyCode+'p').addClass("bg-danger");
-        		}else if(!($('#'+companyCode+'p').hasClass("bg-danger"))){
-        			$('#'+companyCode+'p').addClass("bg-danger");
-        		}		
-        	}else{
-        		if($('#'+companyCode+'p').hasClass("bg-danger")){
-        			$('#'+companyCode+'p').removeClass("bg-danger");
-        			$('#'+companyCode+'p').addClass("bg-success");
-        		}else if(!($('#'+companyCode+'p').hasClass("bg-success"))){
-        			$('#'+companyCode+'p').addClass("bg-success");
-        		}
-        	}
-        //
-
+        	var diffPrice = newPrice - iniPrice;
+        	$('#'+companyCode).html(strHTML2);
+        	maintainColorCode(diffPrice,companyCode);
 	}else{
 		var strHTML = 	"<tr id='"+companyCode+"'>\
-                        	<td id='"+companyCode+"c'>"+companyCode+"</td>\
+                        	<td id='"+companyCode+"c'>"+companyCode.toUpperCase()+"</td>\
                         	<td id='"+companyCode+"p'>"+price+"</td>\
                         	<td id='"+companyCode+"t'>"+msgTime+"</td>\
                     	</tr>";
-
 		var iniData	= $('#stocksAppTable').html();
     	$('#stocksAppTable').html(iniData+strHTML);
 	}
@@ -76,6 +58,24 @@ function maintainRealTime(msgTime){
 	}, 60000);
 }
 
-function maintainColorCode(price) {
-
+//function to update colors
+function maintainColorCode(diffPrice,companyCode) {
+	if(diffPrice<0){
+		console.log("abcd"+diffPrice);
+		if($('#'+companyCode+'p').hasClass("rateUp")){
+			$('#'+companyCode+'p').removeClass("rateUp");
+			$('#'+companyCode+'p').addClass("rateDown");
+		}
+		if(!($('#'+companyCode+'p').hasClass("rateDown"))){
+			$('#'+companyCode+'p').addClass("rateDown");
+		}		
+	}else{
+		if($('#'+companyCode+'p').hasClass("rateDown")){
+			$('#'+companyCode+'p').removeClass("rateDown");
+			$('#'+companyCode+'p').addClass("rateUp");
+		}
+		 if(!($('#'+companyCode+'p').hasClass("rateUp"))){
+			$('#'+companyCode+'p').addClass("rateUp");
+		}
+	}
 }
