@@ -19,3 +19,12 @@ footer {
 .rateUp {
 	 background-color: #0DA220;
 }
+
+.chartdiv {
+  width: 50%;
+  height: 100px;
+}
+
+.row{
+	background-color: white;
+}

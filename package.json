@@ -1,0 +1,30 @@
+{
+  "name": "aniket",
+  "version": "1.0.0",
+  "description": "stock app",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express-generator": "^4.13.1",
+    "express-mailer": "^0.3.0",
+    "fusioncharts": "^3.12.1",
+    "http-server": "^0.8.5",
+    "socket.io": "^1.4.3"
+  },
+  "devDependencies": {
+    "gulp-gh-pages": "^0.5.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AniketPaul1592/AniketPaul1592.github.io.git"
+  },
+  "author": "aniketpaul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AniketPaul1592/AniketPaul1592.github.io/issues"
+  },
+  "homepage": "https://github.com/AniketPaul1592/AniketPaul1592.github.io#readme"
+}
