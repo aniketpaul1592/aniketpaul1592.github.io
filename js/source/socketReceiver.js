@@ -98,11 +98,30 @@ function maintainColorCode(diffPrice,companyCode) {
 		}
 	}
 }
+	
+var map = new Map();
 
 function createGraph(companyCode,price,msgTime){
-	var dps = {};
-	 var map = new Map();
-	var chart = new CanvasJS.Chart(companyCode,{
+	var dps = [];
+	var dataLength = 500;
+	if(!document.getElementById(companyCode)){
+ 		var strHTML =  "<div class='row'><div class='chartdiv' id='"+companyCode+"'></div></div>";
+		var iniData  =   $('#graphLayout').html();
+		$('#graphLayout').html(iniData+strHTML);
+	} else {
+		dps = map.get(companyCode);
+	}
+	msgTime = msgTime/1000;
+	dps.push({
+				x: msgTime,
+				y: price
+			});
+	map.set(companyCode,dps);
+	if (dps.length > dataLength)
+		{
+			dps.shift();				
+		}
+	(new CanvasJS.Chart(companyCode,{
 		title :{
 			text: companyCode
 		},			
@@ -110,73 +129,5 @@ function createGraph(companyCode,price,msgTime){
 			type: "line",
 			dataPoints: dps 
 		}]
-	});
-	if(!document.getElementById(companyCode)){
- 		var strHTML =  "<div class='chartdiv' id='"+companyCode+"'></div>";
-		 var iniData  =   $('#graphLayout').html();
-
-		 $('#graphLayout').html(iniData+strHTML);
-		 var temp = []; // dataPoints
-		 
-
-		 msgTime = msgTime/1000;
-		 temp.push({msgTime,price});
-		 map.set(companyCode,temp);
-		 var dps = map.get(companyCode);
-		chart.render();
-	}else{
-		var dataLength = 500;
-		if(map.get(companyCode)){
-			msgTime = msgTime/1000;
-			var dps = map.get(companyCode);
-			
-			dps.push({
-				x: msgTime,
-				y: price
-			});
-			map.set(companyCode,dps)
-			if (dps.length > dataLength)
-			{
-				dps.shift();				
-			}
-		console.log(dps.length);
-		chart.render();
-		}
-		
-	// var xVal = 0;
-	// var yVal = 100;	
-	// var updateInterval = 100;
-	//  // number of dataPoints visible at any point
-
-	// var updateChart = function () {
-	// 	//count = count || 1;
-	// 	// count is number of times loop runs to generate random dataPoints.
-		
-	// 	// for (var j = 0; j < count; j++) {	
-	// 	// 	yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-	// 		dps.push({
-	// 			x: msgTime,
-	// 			y: price
-	// 		});
-	// 		//xVal++;
-	// 	//};
-	// 	if (dps.length > dataLength)
-	// 	{
-	// 		dps.shift();				
-	// 	}
-	// 	console.log(dps.length);
-	// 	chart.render();		
-
-	// };
-
-	// // generates first set of dataPoints
-	// updateChart(); 
-
-	}
-	
-	
-	// update chart after specified time. 
-	//(function(){updateChart()}, updateInterval); 
-
-                    
+	})).render();
 }
