@@ -5,6 +5,8 @@
 var ws = new WebSocket("ws://stocks.mnet.website");
 let logger = Logging.colorConsole();
 
+$('#stocksTable').hide(); // Hide the table until Socket is active
+
 ws.addEventListener('message', function({data}) {
 	var socketData = JSON.parse(data);
 	usingSocketData(socketData);
@@ -31,7 +33,8 @@ function usingSocketData(socketData){
 function createTableEntry(companyCode, price, msgTime){
 	try{
 		// This condition checks if the data from socket channel is a new entry or not
-	
+		$('#stocksTable').show();
+		$('.loader').hide();
 		if(document.getElementById(companyCode+"r")){
 			var strHTML2 = "<td id='"+companyCode+"c'><a href='http://www.nasdaq.com/symbol/"+companyCode+"' target='_blank'>"+companyCode.toUpperCase()+"</a></td>\
 	                        <td id='"+companyCode+"p'>"+price+"</td>\
