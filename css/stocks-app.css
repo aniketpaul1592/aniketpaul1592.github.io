@@ -13,18 +13,18 @@ footer {
 }
 
 .rateDown {
-	 background-color: #F80B2B;
+	 background-color: #F2DEDE;
 }
 
 .rateUp {
-	 background-color: #0DA220;
+	 background-color: #DFF0D8;
 }
 
 .chartdiv {
-  width: 50%;
-  height: 100px;
+  width: 100%;
+  height: 300px;
 }
 
 .row{
 	background-color: white;
-}
+}4F

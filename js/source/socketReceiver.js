@@ -111,7 +111,8 @@ function createGraph(companyCode,price,msgTime){
 	} else {
 		dps = map.get(companyCode);
 	}
-	msgTime = msgTime/1000;
+	msgTime = new Date();
+	console.log(msgTime);
 	dps.push({
 				x: msgTime,
 				y: price
@@ -124,7 +125,10 @@ function createGraph(companyCode,price,msgTime){
 	(new CanvasJS.Chart(companyCode,{
 		title :{
 			text: companyCode
-		},			
+		},
+		axisX:{
+			valueFormatString  : "HH:mm:ss"
+		},	
 		data: [{
 			type: "line",
 			dataPoints: dps 
